@@ -11,109 +11,220 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); /* Fundo gradiente escuro */
-    font-family: 'Poppins', Arial, sans-serif; /* Nova fonte */
-    color: #e0e0e0; /* Cor de texto principal clara */
+    background-color: #0d0221; /* Roxo bem escuro/azul noite para o fundo */
+    font-family: 'Poppins', 'Roboto Mono', monospace; /* Fonte padrão para texto */
+    color: #e0e0e0;
     padding: 20px;
     text-align: center;
+    overflow-x: hidden; /* Evitar scrollbars desnecessárias */
+
+    /* Efeito de Grade Neon */
+    --grid-color: rgba(255, 0, 255, 0.07); /* Rosa neon bem sutil para a grade */
+    --grid-size: 50px;
+    background-image:
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
 }
 
 #gameContainer {
-    background-color: rgba(22, 33, 62, 0.85); /* Fundo do container semi-transparente e escuro */
-    padding: 30px; /* Mais padding */
-    border-radius: 12px; /* Bordas mais suaves */
-    box-shadow: 0 0 25px rgba(11, 198, 227, 0.3), 0 0 10px rgba(255, 255, 255, 0.05) inset; /* Sombra/brilho neon e um leve brilho interno */
-    border: 1px solid #0BC6E3; /* Borda com cor de destaque */
+    background-color: rgba(22, 2, 40, 0.85); /* Fundo do container roxo escuro semi-transparente */
+    padding: 30px 40px;
+    border-radius: 10px; /* Bordas um pouco mais nítidas */
+    border: 1px solid #FF00FF; /* Borda Rosa Neon */
+    box-shadow:
+        0 0 15px #FF00FF,
+        0 0 30px #FF00FF,
+        inset 0 0 10px rgba(255, 0, 255, 0.3); /* Brilho Rosa Neon */
     width: 90%;
-    max-width: 450px; /* Largura máxima para o container */
+    max-width: 500px;
+    position: relative; /* Para posicionamento absoluto de filhos, como o combo se desejado */
 }
 
 h1 {
-    font-size: 2em; /* Tamanho maior */
-    color: #0BC6E3; /* Cor de destaque para o título */
-    text-transform: uppercase; /* Estilo de título de jogo */
-    letter-spacing: 1.5px;
-    margin-bottom: 25px;
-    font-weight: 700; /* Mais peso na fonte */
-    text-shadow: 0 0 8px rgba(11, 198, 227, 0.7);
+    font-family: 'Audiowide', cursive; /* Fonte Título Synthwave */
+    font-size: 2.2em;
+    color: #FF00FF; /* Rosa Neon */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px; /* Ajustado para dar espaço ao combo */
+    font-weight: 400; /* Audiowide já é "bold" */
+    text-shadow: /* Efeito de brilho no texto */
+        0 0 5px #FF00FF,
+        0 0 10px #FF00FF,
+        0 0 20px #FF00FF,
+        0 0 30px #FF00FF;
+}
+
+/* Estilo para o Contador de Combo */
+#comboCounter {
+    font-family: 'Audiowide', cursive;
+    font-size: 1.8em;
+    color: #00FFFF; /* Ciano Neon */
+    text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
+    margin-bottom: 20px; /* Espaçamento abaixo do combo */
+    line-height: 1; /* Para evitar altura extra */
 }
 
 #gameArea {
-    width: 100%; /* Ocupar a largura do container */
-    max-width: 300px; /* Mantém um tamanho máximo para a área do jogo */
-    height: 300px;
-    border: 2px solid #0BC6E3; /* Borda mais forte com cor de destaque */
-    margin: 20px auto;
-    position: relative;
-    background-color: rgba(10, 15, 30, 0.7); /* Fundo da área de jogo ainda mais escuro */
+    width: 100%;
+    max-width: 320px;
+    height: 320px;
+    border: 2px solid #00FFFF; /* Borda Ciano Neon */
+    margin: 25px auto;
+    position: relative; /* Necessário para a bola e para overflow:hidden funcionar como esperado */
+    background-color: rgba(8, 2, 20, 0.8);
     cursor: crosshair;
-    border-radius: 8px; /* Bordas arredondadas consistentes */
-    box-shadow: inset 0 0 15px rgba(11, 198, 227, 0.2); /* Sombra interna sutil */
+    border-radius: 8px;
+    box-shadow: /* Brilho Ciano Neon para a área */
+        0 0 10px #00FFFF,
+        0 0 20px #00FFFF,
+        inset 0 0 15px rgba(0, 255, 255, 0.2);
+    animation: pulseGameAreaBorder 3s infinite alternate;
+    overflow: hidden; /* IMPORTANTE: para conter a bola gigante */
+}
+
+@keyframes pulseGameAreaBorder {
+    from { box-shadow: 0 0 8px #00FFFF, 0 0 15px #00FFFF, inset 0 0 10px rgba(0, 255, 255, 0.15); }
+    to { box-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF, inset 0 0 20px rgba(0, 255, 255, 0.3); }
 }
 
 #ball {
-    width: 45px; /* Bola um pouco menor para mais desafio (opcional) */
-    height: 45px;
-    background-color: #FF3D71; /* Um vermelho vibrante, quase neon */
+    width: 50px; /* Tamanho inicial, controlado pelo JS também */
+    height: 50px; /* Tamanho inicial, controlado pelo JS também */
+    background: radial-gradient(circle, #FFA0FF 0%, #FF00FF 60%, #A000A0 100%);
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
-    transition: all 0.1s ease-out;
-    box-shadow: 0 0 15px #FF3D71, 0 0 20px #FF3D71; /* Brilho mais intenso na bola */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, width 0.3s ease-out, height 0.3s ease-out; /* Adicionada transição para width/height */
+    box-shadow:
+        0 0 8px #FF00FF,
+        0 0 15px #FF00FF,
+        0 0 25px #FF00FF;
 }
 
 #ball:hover {
-    transform: scale(1.1); /* Efeito sutil ao passar o mouse */
+    transform: scale(1.1);
+    box-shadow:
+        0 0 12px #FF00FF,
+        0 0 25px #FF00FF,
+        0 0 40px #FF00FF,
+        0 0 5px #FFFFFF;
 }
 
+/* Animação de clique na bola */
+.ball-clicked-effect {
+    animation: ballClickPulse 0.4s ease-out;
+}
+
+@keyframes ballClickPulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Estilo para a bola quando ela está "dominando" */
+#ball.dominating {
+    cursor: grab; /* Indica que pode ser "agarrada" para resetar */
+    /* A transição de width/height já está no #ball normal, então o crescimento será animado */
+    /* O JS vai forçar o preenchimento da gameArea */
+}
+
+
 #messageText {
+    font-family: 'Roboto Mono', monospace;
     font-size: 1.1em;
-    color: #c0c0c0; /* Cor de texto um pouco mais suave para mensagens */
+    color: #D0D0FF;
     min-height: 45px;
     margin-bottom: 20px;
     line-height: 1.6;
+    text-shadow: 0 0 3px rgba(200, 200, 255, 0.5);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+#messageText.new-message-animate {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInSlideUpMessage 0.5s forwards;
+}
+
+@keyframes fadeInSlideUpMessage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 #donationLinkContainer {
     margin-top: 25px;
     padding: 20px;
-    border: 1px dashed #0BC6E3; /* Borda tracejada com cor de destaque */
-    background-color: rgba(22, 33, 62, 0.9); /* Fundo consistente com o container */
+    border: 1px dashed #FF00FF;
+    background-color: rgba(30, 10, 50, 0.8);
     border-radius: 8px;
 }
 
 #donationCongratsText {
     font-weight: 600;
-    color: #50fa7b; /* Verde limão para o parabéns, contrastando bem */
+    font-family: 'Roboto Mono', monospace;
+    color: #00FFFF;
+    text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
     margin-bottom: 15px;
 }
 
 #donateButton {
     display: inline-block;
     padding: 12px 28px;
-    background: linear-gradient(145deg, #0BC6E3, #07a8c0); /* Gradiente no botão */
-    color: #ffffff; /* Texto branco para contraste */
+    background: linear-gradient(145deg, #FF00FF, #c000c0);
+    color: #ffffff;
+    font-family: 'Audiowide', cursive;
+    font-size: 1em;
+    letter-spacing: 1px;
     text-decoration: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: 600; /* Texto do botão mais forte */
+    border-radius: 5px;
     margin: 10px 0;
-    border: none; /* Sem borda padrão */
-    text-transform: uppercase; /* Texto em maiúsculas */
-    letter-spacing: 0.5px;
+    border: 1px solid #FF00FF;
+    text-transform: uppercase;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(11, 198, 227, 0.4);
+    box-shadow: 0 0 8px #FF00FF, 0 0 15px #FF00FF, inset 0 0 5px rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+#donateButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 75%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#donateButton:hover::before {
+    left: 120%;
 }
 
 #donateButton:hover {
-    background: linear-gradient(145deg, #07a8c0, #0BC6E3); /* Inverte o gradiente no hover */
-    transform: translateY(-3px) scale(1.03); /* Efeito de levantar e aumentar um pouco */
-    box-shadow: 0 6px 20px rgba(11, 198, 227, 0.6);
+    background: linear-gradient(145deg, #c000c0, #FF00FF);
+    box-shadow: 0 0 12px #FF00FF, 0 0 25px #FF00FF, 0 0 35px #FF00FF, inset 0 0 8px rgba(255,255,255,0.3);
+    transform: translateY(-2px) scale(1.02);
+    color: #fff;
 }
 
+#donateButton:active {
+    transform: translateY(0px) scale(0.98);
+}
+
+
 #donationLinkContainer small {
-    font-size: 0.85em;
-    color: #aaa; /* Cor mais suave para o texto pequeno */
-    display: block; /* Para garantir que o margin-top funcione bem */
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8em;
+    color: #aaaaff;
+    display: block;
     margin-top: 15px;
 }
