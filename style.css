@@ -1,0 +1,119 @@
+/* Reset básico e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); /* Fundo gradiente escuro */
+    font-family: 'Poppins', Arial, sans-serif; /* Nova fonte */
+    color: #e0e0e0; /* Cor de texto principal clara */
+    padding: 20px;
+    text-align: center;
+}
+
+#gameContainer {
+    background-color: rgba(22, 33, 62, 0.85); /* Fundo do container semi-transparente e escuro */
+    padding: 30px; /* Mais padding */
+    border-radius: 12px; /* Bordas mais suaves */
+    box-shadow: 0 0 25px rgba(11, 198, 227, 0.3), 0 0 10px rgba(255, 255, 255, 0.05) inset; /* Sombra/brilho neon e um leve brilho interno */
+    border: 1px solid #0BC6E3; /* Borda com cor de destaque */
+    width: 90%;
+    max-width: 450px; /* Largura máxima para o container */
+}
+
+h1 {
+    font-size: 2em; /* Tamanho maior */
+    color: #0BC6E3; /* Cor de destaque para o título */
+    text-transform: uppercase; /* Estilo de título de jogo */
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    font-weight: 700; /* Mais peso na fonte */
+    text-shadow: 0 0 8px rgba(11, 198, 227, 0.7);
+}
+
+#gameArea {
+    width: 100%; /* Ocupar a largura do container */
+    max-width: 300px; /* Mantém um tamanho máximo para a área do jogo */
+    height: 300px;
+    border: 2px solid #0BC6E3; /* Borda mais forte com cor de destaque */
+    margin: 20px auto;
+    position: relative;
+    background-color: rgba(10, 15, 30, 0.7); /* Fundo da área de jogo ainda mais escuro */
+    cursor: crosshair;
+    border-radius: 8px; /* Bordas arredondadas consistentes */
+    box-shadow: inset 0 0 15px rgba(11, 198, 227, 0.2); /* Sombra interna sutil */
+}
+
+#ball {
+    width: 45px; /* Bola um pouco menor para mais desafio (opcional) */
+    height: 45px;
+    background-color: #FF3D71; /* Um vermelho vibrante, quase neon */
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+    box-shadow: 0 0 15px #FF3D71, 0 0 20px #FF3D71; /* Brilho mais intenso na bola */
+}
+
+#ball:hover {
+    transform: scale(1.1); /* Efeito sutil ao passar o mouse */
+}
+
+#messageText {
+    font-size: 1.1em;
+    color: #c0c0c0; /* Cor de texto um pouco mais suave para mensagens */
+    min-height: 45px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+#donationLinkContainer {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px dashed #0BC6E3; /* Borda tracejada com cor de destaque */
+    background-color: rgba(22, 33, 62, 0.9); /* Fundo consistente com o container */
+    border-radius: 8px;
+}
+
+#donationCongratsText {
+    font-weight: 600;
+    color: #50fa7b; /* Verde limão para o parabéns, contrastando bem */
+    margin-bottom: 15px;
+}
+
+#donateButton {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(145deg, #0BC6E3, #07a8c0); /* Gradiente no botão */
+    color: #ffffff; /* Texto branco para contraste */
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 600; /* Texto do botão mais forte */
+    margin: 10px 0;
+    border: none; /* Sem borda padrão */
+    text-transform: uppercase; /* Texto em maiúsculas */
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(11, 198, 227, 0.4);
+}
+
+#donateButton:hover {
+    background: linear-gradient(145deg, #07a8c0, #0BC6E3); /* Inverte o gradiente no hover */
+    transform: translateY(-3px) scale(1.03); /* Efeito de levantar e aumentar um pouco */
+    box-shadow: 0 6px 20px rgba(11, 198, 227, 0.6);
+}
+
+#donationLinkContainer small {
+    font-size: 0.85em;
+    color: #aaa; /* Cor mais suave para o texto pequeno */
+    display: block; /* Para garantir que o margin-top funcione bem */
+    margin-top: 15px;
+}
