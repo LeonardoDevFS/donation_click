@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doar R$1 via QR Code - Web Super Frases</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-qrcode.css">
+</head>
+<body>
+    <div class="qr-page-container">
+        <div class="qr-content-box">
+            <h1>Doe R$1 Rapidinho!</h1>
+            <p class="instructions">Escaneie o QR Code abaixo com o app do seu banco ou carteira digital para fazer um PIX de R$1:</p>
+            
+            <div class="qr-image-wrapper">
+                <img src="imgQR/QRCODEDEV.jpg" alt="QR Code para Doação PIX R$1" id="qrImage">
+            </div>
+
+            <div class="pix-key-info">
+                <p>Ou utilize a chave PIX (Copia e Cola):</p>
+                <div class="input-group">
+                    <input type="text" value="00020101021226810014BR.GOV.BCB.PIX01366eff6ca0-527a-4169-b33f-af74deedf6530219Pagamento leosonicx52040000530398654041.005802BR5925LEONARDO JONATHAN DO CARM6007ITAJUBA62290525QRCCNhG2Jan6EjLclcubYdPNa6304CBAB" id="pixKeyInput" readonly>
+                    <button id="copyPixKeyButton" title="Copiar Chave PIX">Copiar</button>
+                </div>
+                <p id="copyFeedback" class="copy-feedback" style="display:none;">Chave PIX copiada para a área de transferência!</p>
+            </div>
+
+            <a href="index.html" class="back-to-game-button">Voltar para o Jogo</a>
+        </div>
+    </div>
+
+    <script src="script-qrcode.js"></script>
+</body>
+</html>

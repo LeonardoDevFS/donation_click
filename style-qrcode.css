@@ -1,0 +1,161 @@
+/* style-qrcode.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #0d0221; /* Mesmo fundo Synthwave escuro */
+    font-family: 'Poppins', sans-serif;
+    color: #e0e0e0;
+    padding: 20px;
+    text-align: center;
+
+    /* Opcional: Adicionar o mesmo efeito de grade do jogo */
+    --grid-color: rgba(255, 0, 255, 0.07);
+    --grid-size: 50px;
+    background-image:
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+}
+
+.qr-page-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-content-box {
+    background-color: rgba(22, 2, 40, 0.9); /* Similar ao gameContainer */
+    padding: 30px 40px;
+    border-radius: 10px;
+    border: 1px solid #FF00FF; /* Borda Rosa Neon */
+    box-shadow:
+        0 0 15px #FF00FF,
+        0 0 30px #FF00FF,
+        inset 0 0 10px rgba(255, 0, 255, 0.3);
+    width: 90%;
+    max-width: 450px; /* Ajuste conforme necessário */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-content-box h1 {
+    font-family: 'Audiowide', cursive;
+    font-size: 2em;
+    color: #FF00FF; /* Rosa Neon */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    text-shadow:
+        0 0 5px #FF00FF,
+        0 0 10px #FF00FF;
+}
+
+.qr-content-box .instructions {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1em;
+    color: #D0D0FF; /* Lilás claro */
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.qr-image-wrapper {
+    background-color: #ffffff; /* Fundo branco para o QR Code ter bom contraste */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+#qrImage {
+    display: block;
+    max-width: 200px; /* Ajuste o tamanho do QR Code conforme necessário */
+    height: auto;
+    margin: 0 auto;
+}
+
+.pix-key-info {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.pix-key-info p {
+    font-family: 'Roboto Mono', monospace;
+    margin-bottom: 8px;
+    color: #D0D0FF;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+#pixKeyInput {
+    flex-grow: 1;
+    padding: 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    background-color: rgba(0,0,0,0.3);
+    color: #e0e0e0;
+    border: 1px solid #00FFFF; /* Borda Ciano */
+    border-radius: 5px 0 0 5px; /* Arredondar canto esquerdo */
+    outline: none;
+}
+
+#copyPixKeyButton {
+    padding: 10px 15px;
+    background: #00FFFF; /* Ciano Neon */
+    color: #0d0221; /* Cor de fundo escura para contraste */
+    font-family: 'Audiowide', cursive;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 0 5px 5px 0; /* Arredondar canto direito */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#copyPixKeyButton:hover {
+    background-color: #00CFDE; /* Ciano um pouco mais escuro */
+}
+
+.copy-feedback {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    color: #50fa7b; /* Verde Limão para feedback positivo */
+    margin-top: 5px;
+}
+
+.back-to-game-button {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(145deg, #FF00FF, #c000c0); /* Mesmo estilo do botão de doação */
+    color: #ffffff;
+    font-family: 'Audiowide', cursive;
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid #FF00FF;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px #FF00FF, 0 0 15px #FF00FF;
+}
+
+.back-to-game-button:hover {
+    background: linear-gradient(145deg, #c000c0, #FF00FF);
+    box-shadow: 0 0 12px #FF00FF, 0 0 25px #FF00FF;
+    transform: translateY(-2px);
+}

@@ -253,7 +253,7 @@ h1 {
     letter-spacing: 1px;
     text-decoration: none;
     border-radius: 5px;
-    margin: 10px 0;
+    margin: 10px 0; /* Ajustado para dar espaço se os botões ficarem em linhas separadas */
     border: 1px solid #FF00FF;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -274,9 +274,35 @@ h1 {
 }
 #donateButton:active { transform: translateY(0px) scale(0.98); }
 
+/* NOVO Estilo para o Botão de Doação QR Code */
+.donate-button-alt {
+    display: inline-block; /* Ou 'block' se quiser que ocupe a linha toda */
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #00FFFF, #009F9F); /* Gradiente Ciano */
+    color: #0d0221; /* Texto escuro para contraste com ciano */
+    font-family: 'Audiowide', cursive;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px; /* Espaçamento acima */
+    margin-left: 5px; /* Espaçamento à esquerda se inline-block e houver espaço */
+    border: 1px solid #00FFFF;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px #00FFFF, 0 0 15px #00FFFF;
+}
+.donate-button-alt:hover {
+    background: linear-gradient(145deg, #009F9F, #00FFFF);
+    box-shadow: 0 0 12px #00FFFF, 0 0 25px #00FFFF;
+    transform: translateY(-2px);
+    color: #070111; /* Mantém ou escurece um pouco o texto no hover */
+}
+
+
 /* Estilo para o Falso Botão de Doação Milionária */
 .donate-button-fake {
-    display: inline-block; /* Controlado pelo JS para 'none' ou 'inline-block' */
+    display: block; /* Para ocupar a linha e aplicar margin-top corretamente */
     padding: 15px 30px;
     background: linear-gradient(45deg, gold, orange, red, orange, gold);
     color: black;
@@ -289,7 +315,9 @@ h1 {
     text-decoration: none;
     animation: pulseFakeButton 1s infinite alternate;
     box-shadow: 0 0 20px gold;
-    cursor: pointer; /* Para indicar que é clicável */
+    cursor: pointer;
+    margin: 20px auto 0 auto; /* Centralizado e com margem superior */
+    width: fit-content; /* Ajusta a largura ao conteúdo */
 }
 @keyframes pulseFakeButton {
     from { transform: scale(1); box-shadow: 0 0 15px gold, 0 0 5px red inset; }
@@ -301,5 +329,5 @@ h1 {
     font-size: 0.8em;
     color: #aaaaff;
     display: block;
-    /* margin-top: 15px; // Ajustado no HTML para estar após o botão falso */
+    margin-top: 15px; /* Aumentar um pouco a margem se o botão falso estiver visível */
 }
