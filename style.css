@@ -30,7 +30,7 @@ body {
 #gameContainer {
     background-color: rgba(22, 2, 40, 0.85); /* Fundo do container roxo escuro semi-transparente */
     padding: 30px 40px;
-    border-radius: 10px; /* Bordas um pouco mais nítidas */
+    border-radius: 10px;
     border: 1px solid #FF00FF; /* Borda Rosa Neon */
     box-shadow:
         0 0 15px #FF00FF,
@@ -38,45 +38,44 @@ body {
         inset 0 0 10px rgba(255, 0, 255, 0.3); /* Brilho Rosa Neon */
     width: 90%;
     max-width: 500px;
-    position: relative; /* Para posicionamento absoluto de filhos, como o combo se desejado */
+    position: relative;
 }
 
 h1 {
-    font-family: 'Audiowide', cursive; /* Fonte Título Synthwave */
+    font-family: 'Audiowide', cursive;
     font-size: 2.2em;
     color: #FF00FF; /* Rosa Neon */
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 15px; /* Ajustado para dar espaço ao combo */
-    font-weight: 400; /* Audiowide já é "bold" */
-    text-shadow: /* Efeito de brilho no texto */
+    margin-bottom: 15px;
+    font-weight: 400;
+    text-shadow:
         0 0 5px #FF00FF,
         0 0 10px #FF00FF,
         0 0 20px #FF00FF,
         0 0 30px #FF00FF;
 }
 
-/* Estilo para o Contador de Combo */
 #comboCounter {
     font-family: 'Audiowide', cursive;
     font-size: 1.8em;
     color: #00FFFF; /* Ciano Neon */
     text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
-    margin-bottom: 20px; /* Espaçamento abaixo do combo */
-    line-height: 1; /* Para evitar altura extra */
+    margin-bottom: 20px;
+    line-height: 1;
 }
 
 #gameArea {
     width: 100%;
     max-width: 320px;
     height: 320px;
-    border: 2px solid #00FFFF; /* Borda Ciano Neon */
+    border: 2px solid #00FFFF;
     margin: 25px auto;
-    position: relative; /* Necessário para a bola e para overflow:hidden funcionar como esperado */
+    position: relative;
     background-color: rgba(8, 2, 20, 0.8);
     cursor: crosshair;
     border-radius: 8px;
-    box-shadow: /* Brilho Ciano Neon para a área */
+    box-shadow:
         0 0 10px #00FFFF,
         0 0 20px #00FFFF,
         inset 0 0 15px rgba(0, 255, 255, 0.2);
@@ -90,13 +89,13 @@ h1 {
 }
 
 #ball {
-    width: 50px; /* Tamanho inicial, controlado pelo JS também */
-    height: 50px; /* Tamanho inicial, controlado pelo JS também */
+    width: 50px;
+    height: 50px;
     background: radial-gradient(circle, #FFA0FF 0%, #FF00FF 60%, #A000A0 100%);
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, width 0.3s ease-out, height 0.3s ease-out; /* Adicionada transição para width/height */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, width 0.3s ease-out, height 0.3s ease-out;
     box-shadow:
         0 0 8px #FF00FF,
         0 0 15px #FF00FF,
@@ -112,25 +111,102 @@ h1 {
         0 0 5px #FFFFFF;
 }
 
-/* Animação de clique na bola */
 .ball-clicked-effect {
     animation: ballClickPulse 0.4s ease-out;
 }
-
 @keyframes ballClickPulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.3); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Estilo para a bola quando ela está "dominando" */
 #ball.dominating {
-    cursor: grab; /* Indica que pode ser "agarrada" para resetar */
-    /* A transição de width/height já está no #ball normal, então o crescimento será animado */
-    /* O JS vai forçar o preenchimento da gameArea */
+    cursor: grab;
 }
 
+/* Animações cômicas para a bola ao errar */
+.ball-wobble {
+    animation: wobble 0.5s ease-in-out;
+}
+@keyframes wobble {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    15% { transform: translateX(-8px) rotate(-5deg); }
+    30% { transform: translateX(6px) rotate(3deg); }
+    45% { transform: translateX(-4px) rotate(-2deg); }
+    60% { transform: translateX(2px) rotate(1deg); }
+    75% { transform: translateX(-1px) rotate(0deg); }
+}
 
+.ball-squash-stretch {
+    animation: squashStretch 0.6s ease-out;
+}
+@keyframes squashStretch {
+    0% { transform: scale(1, 1); }
+    15% { transform: scale(1.3, 0.7); }
+    30% { transform: scale(0.7, 1.3); }
+    45% { transform: scale(1.15, 0.85); }
+    60% { transform: scale(0.9, 1.1); }
+    100% { transform: scale(1, 1); }
+}
+
+/* Estilos para Efeito "Quase Doloroso" */
+.almost-miss-effect {
+    position: absolute;
+    font-family: 'Audiowide', cursive;
+    font-size: 1.5em;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+}
+.effect-pop { animation: popEffect 0.5s ease-out forwards; color: #FFD700; text-shadow: 0 0 5px #000; }
+@keyframes popEffect {
+    0% { transform: scale(0.5) translateY(0); opacity: 0; }
+    50% { transform: scale(1.2) translateY(-10px); opacity: 1; }
+    100% { transform: scale(1) translateY(-15px); opacity: 0; }
+}
+.effect-shake { animation: shakeEffect 0.5s ease-in-out forwards; color: #FFA500; }
+@keyframes shakeEffect {
+    0%, 100% { transform: translateX(0) translateY(0); opacity: 0; }
+    10% {opacity: 1;} 20%, 60% { transform: translateX(-3px) translateY(-5px); }
+    40%, 80% { transform: translateX(3px) translateY(-7px); }
+    90% {opacity: 1;} 100% {opacity: 0; transform: translateY(-10px);}
+}
+.effect-zoom-out { animation: zoomOutEffect 0.6s ease-out forwards; color: #00FFFF; }
+@keyframes zoomOutEffect {
+    0% { transform: scale(2) translateY(0); opacity: 0; }
+    20% { transform: scale(1) translateY(-5px); opacity: 1; }
+    100% { transform: scale(0.5) translateY(-20px); opacity: 0; }
+}
+.effect-electric { animation: electricEffect 0.7s steps(2, jump-none) infinite, fadeOutQuick 0.7s forwards; color: #FF00FF; }
+@keyframes electricEffect { 0%, 100% { transform: translateX(0) translateY(0) skewX(0); } 50% { transform: translateX(2px) translateY(-2px) skewX(5deg); } }
+@keyframes fadeOutQuick { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+.effect-fly-by { animation: flyByEffect 0.5s ease-out forwards; color: #FFFFFF; }
+@keyframes flyByEffect {
+    0% { transform: translateX(-20px) translateY(0) skewX(-15deg); opacity: 0; }
+    30% { transform: translateX(0px) translateY(-5px) skewX(0deg); opacity: 1; }
+    100% { transform: translateX(20px) translateY(-10px) skewX(15deg); opacity: 0; }
+}
+.effect-drop { animation: dropEffect 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; color: #FF3D71; }
+@keyframes dropEffect { 0% { transform: translateY(-50px) scaleY(0.7); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(0) scaleY(1); opacity: 0; } }
+.effect-wobble-text { animation: wobble 0.5s ease-in-out forwards, fadeOutQuick 0.5s 0.3s forwards; color: #50fa7b; }
+
+
+/* Estilos para Confetes */
+.confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    opacity: 0;
+    animation: fallAndFade 2s ease-out forwards;
+    z-index: 200;
+}
+@keyframes fallAndFade {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(200px) translateX(var(--random-x-end)) rotate(var(--random-rotate-end)); opacity: 0; }
+}
+
+/* Estilos para Mensagem de Texto */
 #messageText {
     font-family: 'Roboto Mono', monospace;
     font-size: 1.1em;
@@ -143,21 +219,14 @@ h1 {
     transform: translateY(0);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
 #messageText.new-message-animate {
     opacity: 0;
     transform: translateY(15px);
     animation: fadeInSlideUpMessage 0.5s forwards;
 }
+@keyframes fadeInSlideUpMessage { to { opacity: 1; transform: translateY(0); } }
 
-@keyframes fadeInSlideUpMessage {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
+/* Estilos para Container de Doação e Botões */
 #donationLinkContainer {
     margin-top: 25px;
     padding: 20px;
@@ -174,7 +243,7 @@ h1 {
     margin-bottom: 15px;
 }
 
-#donateButton {
+#donateButton { /* Botão de doação original */
     display: inline-block;
     padding: 12px 28px;
     background: linear-gradient(145deg, #FF00FF, #c000c0);
@@ -192,39 +261,45 @@ h1 {
     position: relative;
     overflow: hidden;
 }
-
 #donateButton::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 75%;
-    height: 100%;
+    content: ''; position: absolute; top: 0; left: -120%; width: 75%; height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transform: skewX(-25deg);
-    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: skewX(-25deg); transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
-#donateButton:hover::before {
-    left: 120%;
-}
-
+#donateButton:hover::before { left: 120%; }
 #donateButton:hover {
     background: linear-gradient(145deg, #c000c0, #FF00FF);
     box-shadow: 0 0 12px #FF00FF, 0 0 25px #FF00FF, 0 0 35px #FF00FF, inset 0 0 8px rgba(255,255,255,0.3);
-    transform: translateY(-2px) scale(1.02);
-    color: #fff;
+    transform: translateY(-2px) scale(1.02); color: #fff;
 }
+#donateButton:active { transform: translateY(0px) scale(0.98); }
 
-#donateButton:active {
-    transform: translateY(0px) scale(0.98);
+/* Estilo para o Falso Botão de Doação Milionária */
+.donate-button-fake {
+    display: inline-block; /* Controlado pelo JS para 'none' ou 'inline-block' */
+    padding: 15px 30px;
+    background: linear-gradient(45deg, gold, orange, red, orange, gold);
+    color: black;
+    font-family: 'Audiowide', cursive;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 3px solid darkred;
+    border-radius: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    animation: pulseFakeButton 1s infinite alternate;
+    box-shadow: 0 0 20px gold;
+    cursor: pointer; /* Para indicar que é clicável */
 }
-
+@keyframes pulseFakeButton {
+    from { transform: scale(1); box-shadow: 0 0 15px gold, 0 0 5px red inset; }
+    to { transform: scale(1.05); box-shadow: 0 0 30px orange, 0 0 10px yellow inset; }
+}
 
 #donationLinkContainer small {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.8em;
     color: #aaaaff;
     display: block;
-    margin-top: 15px;
+    /* margin-top: 15px; // Ajustado no HTML para estar após o botão falso */
 }
